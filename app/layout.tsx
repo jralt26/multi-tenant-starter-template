@@ -1,31 +1,36 @@
-import { StackProvider, StackTheme } from "@stackframe/stack";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { stackServerApp } from "../stack";
-import "./globals.css";
-import { Provider } from "./provider";
+import { Inter } from 'next/font/google'
+import { Providers } from './providers'
+import { Header } from '@/components/layout/header'
+import { Footer } from '@/components/layout/footer'
+import { Toaster } from '@/components/ui/toaster'
+import { Analytics } from '@/components/analytics'
+import './globals.css'
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: "Stack Template",
-  description: "A Multi-tenant Next.js Starter Template",
-};
+export const metadata = {
+  title: 'MALTA - Financial Leasing Services',
+  description: 'Specialized machinery and automotive leasing solutions',
+}
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="es" suppressHydrationWarning>
       <body className={inter.className}>
-        <Provider>
-          <StackProvider app={stackServerApp}>
-            <StackTheme>{children}</StackTheme>
-          </StackProvider>
-        </Provider>
+        <Providers>
+          <div className="flex min-h-screen flex-col">
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
+          <Toaster />
+          <Analytics />
+        </Providers>
       </body>
     </html>
-  );
+  )
 }
